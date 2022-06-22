@@ -40,7 +40,7 @@ uses asciiflow.com but you could also use excalidraw.com, draw.io, or miro.com_
 │  - select_entry                           │
 │  - all_contacts                           │
 │  - outstanding_tasks                      │
-│  - completed_tasks                         │
+│  - completed_tasks                        │
 │                                           │
 ├──────────────────────┬────────────────────┘
 │                      │
@@ -120,12 +120,12 @@ class DiaryEntry
 end
 
 class Task
-  def deadline
-    # Return deadline date as string
-  end
-
   def task
     # Return task as string
+  end
+  
+  def deadline
+    # Return deadline date as string
   end
 
   def done?
@@ -174,16 +174,16 @@ organiser.all_contacts => ["07000000001", "07000000002", "07000000003"]
 
 # 4
 organiser = Organiser.new
-task1 = Task.new("2022-06-26", "Mow the lawn")
-task2 = Task.new("2022-06-23", "Walk the dog")
+task1 = Task.new("Mow the lawn", "2022-06-26")
+task2 = Task.new("Walk the dog", "2022-06-23")
 organiser.add_task(task1)
 organiser.add_task(task2)
 organiser.outstanding_tasks => [task2, task1]
 
 # 5
 organiser = Organiser.new
-task1 = Task.new("2022-06-26", "Mow the lawn")
-task2 = Task.new("2022-06-23", "Walk the dog")
+task1 = Task.new("Mow the lawn", "2022-06-26")
+task2 = Task.new("Walk the dog", "2022-06-23")
 organiser.add_task(task1)
 organiser.add_task(task2)
 task1.mark_done!
@@ -192,8 +192,8 @@ organiser.completed_tasks => [task1]
 
 # 6
 organiser = Organiser.new
-task1 = Task.new("2022-06-26", "Mow the lawn")
-task2 = Task.new("2022-06-23", "Walk the dog")
+task1 = Task.new("Mow the lawn", "2022-06-26")
+task2 = Task.new("Walk the dog", "2022-06-23")
 organiser.add_task(task1)
 organiser.add_task(task2)
 task1.mark_done!
@@ -213,7 +213,7 @@ a more granular level of detail._
 # 1
 organiser = Organiser.new
 organiser.all_entries => []
-# organiser.select_entry => nil
+organiser.select_entry(1, 1) => []
 organiser.all_contacts => []
 organiser.outstanding_tasks => []
 organiser.completed_tasks => []
@@ -249,7 +249,7 @@ entry.count_words => 3
 
 # 6
 entry = DiaryEntry.new("text text text")
-entry.contacts => [] # || nil
+entry.contacts => []
 
 # 7
 entry = DiaryEntry.new("text 07000000002 07000 000003")
@@ -259,17 +259,17 @@ entry.contacts => ["07000000002", "07000000003"]
 # EXAMPLE
 
 # 1
-task = Task.new("2022-06-23", "Walk the dog")
-task.deadline => "2022-06-23"
+task = Task.new("Walk the dog", "2022-06-23")
 task.task => "Walk the dog"
+task.deadline => "2022-06-23"
 task.done? => false
 
 # 2
-task = Task.new("23rd June 2022", "Walk the dog")
+task = Task.new("Walk the dog", "23rd June 2022")
 task.deadline => "2022-06-23"
 
 # 3
-task = Task.new("2022-06-23", "Walk the dog")
+task = Task.new("Walk the dog", "2022-06-23")
 task.mark_done!
 task.done? => true
 ```
